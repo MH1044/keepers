@@ -1,0 +1,41 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/keepers-core",
+    "crates/keepers-cli",
+    "crates/keepers-fixtures",
+    "app/src-tauri",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/MH1044/keepers"
+publish = false
+
+[workspace.dependencies]
+keepers-core = { path = "crates/keepers-core" }
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+regex = "1"
+toml = "1"
+tempfile = "3"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+
+# The fixture generator and the JPEG encoder run optimised even in debug builds, so `verify`
+# does not wait on them. Their output is integer maths and libm, so it does not depend on the
+# optimisation level (checked: the same bytes at opt-level 0 and 2).
+[profile.dev.package.keepers-fixtures]
+opt-level = 2
+
+[profile.dev.package.image]
+opt-level = 2
+
+[profile.dev.package.zune-jpeg]
+opt-level = 2

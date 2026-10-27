@@ -1,0 +1,19 @@
+name: release
+
+# Releases are cut by pushing a tag `v<version>`. The first step refuses to go on without
+# `docs/releases/<version>.md`. Building, signing and publishing the installers arrive with
+# module 11 (packaging and release); until then this workflow only checks the notes exist.
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  release-notes:
+    name: release notes must exist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check docs/releases/<version>.md
+        run: sh scripts/release-check.sh "${GITHUB_REF_NAME#v}"

@@ -1,0 +1,19 @@
+[package]
+name = "keepers-fixtures"
+description = "Writes the seeded test fixtures of Keepers, bit-identical on Windows and Linux"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "keepers-fixtures"
+path = "src/main.rs"
+
+[dependencies]
+clap = { workspace = true }
+image = { version = "0.25", default-features = false, features = ["jpeg"] }
+libm = "0.2"
+sha2 = "0.10"

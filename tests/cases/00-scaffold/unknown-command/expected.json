@@ -1,0 +1,5 @@
+{
+  "schema": "keepers.error/1",
+  "code": "usage",
+  "message": "unknown command 'frobnicate'. Run keepers --help."
+}

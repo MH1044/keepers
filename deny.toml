@@ -1,0 +1,34 @@
+# The licence gate, run as `cargo deny check licenses` in verify and CI.
+#
+# cargo-deny refuses every licence that is not in `allow`, transitive dependencies included, so
+# the allow list is the gate. Refused on purpose, and never to be added to `allow` unless
+# docs/adr/0002-licence.md is superseded: GPL-2.0, GPL-3.0, AGPL-3.0, SSPL-1.0 and BUSL-1.1, and
+# every other copyleft or source-available licence. The npm licence check in app/package.json
+# uses the same allow list. A test in crates/keepers-core/tests/hygiene.rs reads this file.
+
+[graph]
+targets = [
+    "x86_64-pc-windows-msvc",
+    "x86_64-unknown-linux-gnu",
+    "x86_64-apple-darwin",
+    "aarch64-apple-darwin",
+]
+all-features = false
+
+[licenses]
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Zlib",
+    "Unicode-3.0",
+    "MPL-2.0",
+    # Apache-2.0 whose exception only concerns LLVM binaries: target-lexicon, a build-time
+    # dependency of the Linux GTK bindings.
+    "Apache-2.0 WITH LLVM-exception",
+]
+confidence-threshold = 0.8
+# Allowances no dependency uses yet are deliberate: they are the policy, not a record.
+unused-allowed-license = "allow"

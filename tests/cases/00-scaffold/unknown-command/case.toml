@@ -1,0 +1,4 @@
+description = "an unknown command is a usage error: the error document on stdout, exit 1"
+args = ["frobnicate", "--json"]
+exit_code = 1
+stdout = "expected.json"

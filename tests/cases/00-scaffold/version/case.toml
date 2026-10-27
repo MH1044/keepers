@@ -1,0 +1,7 @@
+description = "keepers --version --json prints the version document"
+args = ["--version", "--json"]
+exit_code = 0
+stdout = "expected.json"
+
+[match]
+"/version" = '^\d+\.\d+\.\d+(-[0-9A-Za-z.]+)?$'
